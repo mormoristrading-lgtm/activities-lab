@@ -1,0 +1,13 @@
+{
+  "name": "activities-lab-push",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-01-28",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "ALLOW_ORIGIN": "https://activities-lab.pages.dev"
+  },
+  // Created with: npx wrangler kv namespace create SUBS  (paste the id below)
+  "kv_namespaces": [{ "binding": "SUBS", "id": "REPLACE_WITH_KV_NAMESPACE_ID" }],
+  // Cron fires every 5 minutes; the Worker sends any reminders due in that window.
+  "triggers": { "crons": ["*/5 * * * *"] }
+}

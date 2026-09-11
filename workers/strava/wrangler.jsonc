@@ -1,0 +1,11 @@
+{
+  "name": "activities-lab-strava",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-01-28",
+  // Set your PWA origin so the browser is allowed to call this Worker.
+  "vars": {
+    "ALLOW_ORIGIN": "https://activities-lab.pages.dev"
+  },
+  // Created with: npx wrangler kv namespace create TOKENS  (paste the id below)
+  "kv_namespaces": [{ "binding": "TOKENS", "id": "REPLACE_WITH_KV_NAMESPACE_ID" }]
+}

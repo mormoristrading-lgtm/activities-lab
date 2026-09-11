@@ -1,0 +1,8 @@
+# Always revalidate the service worker + entry HTML so new deploys are detected
+# quickly (the hashed /assets/* files are immutable and cached normally).
+/sw.js
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/
+  Cache-Control: no-cache
