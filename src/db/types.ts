@@ -62,7 +62,7 @@ export interface Session {
   items: SessionItem[]
 }
 
-export type RunType = 'easy' | 'tempo' | 'interval' | 'long'
+export type RunType = 'easy' | 'tempo' | 'interval' | 'long' | 'midPace'
 export type DayKey = 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun'
 
 /** Discipline of one timed block in the day program. */

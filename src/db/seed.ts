@@ -192,6 +192,52 @@ export const EXERCISES: Exercise[] = [
     'Brace hard; roll out only as far as you can keep a neutral spine.',
     'Pallof press alternative: resist rotation, arms straight out.',
   ]),
+
+  // ── 4-Day program additions ────────────────────────────────────────────────
+  ex(63, 'plate-loaded-row-machine', 'Plate-Loaded Row Machine', 'upperPull', ['middle back', 'lats'], ['biceps'], [
+    'Chest against the pad; pull the handles to the ribs, squeeze the shoulder blades.',
+  ]),
+  ex(64, 'plate-loaded-chest-press', 'Plate-Loaded Chest Press', 'upperPush', ['chest', 'triceps'], ['shoulders'], [
+    'Handles at mid-chest height; press to lockout without shrugging.',
+  ]),
+  ex(65, 'pullup-neutral-grip', 'Pull-Up (or Neutral-Grip Lat Pulldown)', 'upperPull', ['lats'], ['biceps', 'middle back'], [
+    'Full dead hang to chin over the bar; substitute neutral-grip lat pulldown if unavailable.',
+  ]),
+  ex(66, 'machine-high-row', 'Machine High Row', 'upperPull', ['middle back', 'lats'], ['biceps'], [
+    'High-elbow row; drive the elbows back and squeeze the upper back.',
+  ]),
+  ex(67, 'bulgarian-split-squat', 'Bulgarian Split Squat', 'lower', ['quadriceps', 'glutes'], ['hamstrings'], [
+    'Rear foot elevated; drop straight down, front knee tracks the toe.',
+  ]),
+
+  // ── Calisthenics & Run session ─────────────────────────────────────────────
+  ex(68, 'pushup-close-grip', 'Close-Grip Push-Up', 'upperPush', ['triceps', 'chest'], ['shoulders'], [
+    'Hands close together under the chest; elbows stay tucked to the sides.',
+  ]),
+  ex(69, 'pushup-normal', 'Push-Up', 'upperPush', ['chest', 'triceps'], ['shoulders'], [
+    'Hands just outside shoulder width; body stays a straight line.',
+  ]),
+  ex(70, 'pushup-wide', 'Wide-Grip Push-Up', 'upperPush', ['chest'], ['shoulders', 'triceps'], [
+    'Hands wider than shoulder width; chest-focused, shorter range.',
+  ]),
+  ex(71, 'jumping-squat', 'Jumping Squat', 'lower', ['quadriceps', 'glutes'], ['hamstrings', 'calves'], [
+    'Explode up out of the squat, land soft and reset before the next rep.',
+  ]),
+  ex(72, 'pull-up', 'Pull-Up', 'upperPull', ['lats'], ['biceps', 'middle back'], [
+    'Overhand grip, dead hang to chin over the bar; no kipping.',
+  ]),
+  ex(73, 'chin-up', 'Chin-Up', 'upperPull', ['lats'], ['biceps', 'middle back'], [
+    'Underhand grip; dead hang to chin over the bar, control the descent.',
+  ]),
+  ex(74, 'leg-raise-swings', 'Leg Raise Swings', 'accessory', ['abdominals'], ['hip flexors'], [
+    'Lying or hanging; swing the legs together in a controlled arc, brace the core throughout.',
+  ]),
+  ex(75, 'bicycle-kicks', 'Bicycle Kicks', 'accessory', ['abdominals'], ['hip flexors'], [
+    'Lower back pressed down; alternate knee-to-elbow, controlled tempo.',
+  ]),
+  ex(76, 'plank-hold', 'Plank', 'accessory', ['abdominals'], ['lower back'], [
+    'Straight line from head to heels; brace and breathe, don’t let the hips sag.',
+  ]),
 ].map((e) => ({ ...e, image: img(e.slug ?? '') }))
 
 function ex(
@@ -219,166 +265,167 @@ function ex(
 }
 
 // ── Sessions ─────────────────────────────────────────────────────────────────
-// 5-day split. Volume is high but evenly spread; small muscles (rear delts, arms,
-// core) are trained across multiple days. Core lives on Upper/Push/Legs and is
-// kept off the heavy squat (Lower) and deadlift (Pull) days.
-// Each session gets its own ~5 min warm-up (raise heart rate + rehearse the day's
-// movement patterns) and ~5 min post-session stretch, tailored to what it trains.
-// Bodyweight only — no bands, machines, or cardio equipment required.
-const WARMUP_UPPER = [
-  '2 min jumping jacks or jogging in place',
-  'Arm circles + shoulder rolls (1 min)',
-  'Scapular push-ups + cat-cow (1 min)',
-  '2–3 ramp-up sets on the first press (1 min)',
+// Locked 4-day program (Upper-body priority): Upper A · Lower A · Upper B · Lower B.
+// Plus a 5th, non-gym Calisthenics & Run session on a rest day.
+// Each session gets its own timed warm-up and post-session stretch.
+const WARMUP_UPPER_A = [
+  'Arm circles + shoulder rolls (30s)',
+  'Band pull-aparts (30s)',
+  'Light cable/band external rotations (30s)',
+  'Scapular pulldowns (30s)',
+  'Wall slides (30s)',
+  'Slow bodyweight push-ups (30s)',
 ]
-const COOLDOWN_UPPER = [
+const COOLDOWN_UPPER_A = [
   'Doorway chest stretch, 30s/side',
-  'Cross-body shoulder stretch, 30s/side',
-  'Overhead triceps stretch, 30s/side',
-  "Child's pose lat stretch, 60s",
+  'Lat stretch, 30s/side',
+  'Overhead triceps / shoulder stretch, 30s/side',
 ]
 
-const WARMUP_LOWER = [
-  '2 min jumping jacks or jogging in place',
-  'Bodyweight squats × 15 (1 min)',
-  'Leg swings, front-back + side-side, 30s/side',
-  '2–3 ramp-up sets on the first squat (1 min)',
+const WARMUP_LOWER_A = [
+  'Easy treadmill walk or bike (30s)',
+  'Forward/back leg swings, 15s/leg',
+  'Controlled bodyweight squats (30s)',
+  'Bodyweight hip hinges (30s)',
+  'Ankle rocks (30s)',
+  'Alternating reverse lunges (30s)',
 ]
-const COOLDOWN_LOWER = [
+const COOLDOWN_LOWER_A = [
+  'Hip-flexor stretch, 30s/side',
+  'Hamstring stretch, 30s/side',
   'Standing quad stretch, 30s/side',
-  'Kneeling hip flexor stretch, 30s/side',
+]
+
+const WARMUP_UPPER_B = [
+  'Easy rower or arm circles (30s)',
+  'Band pull-aparts (30s)',
+  'Light straight-arm pulldowns (30s)',
+  'Scapular push-ups (30s)',
+  'Light face pulls (30s)',
+  'Slow incline or regular push-ups (30s)',
+]
+const COOLDOWN_UPPER_B = [
+  'Chest stretch, 30s/side',
+  'Cross-body rear-shoulder stretch, 30s/side',
+  'Biceps wall stretch, 30s/side',
+]
+
+const WARMUP_LOWER_B = [
+  'Easy treadmill walk or bike (30s)',
+  'Glute bridges (30s)',
+  'Controlled bodyweight squats (30s)',
+  'Leg swings, 15s/leg',
+  'Bodyweight good mornings (30s)',
+  'Alternating lateral lunges (30s)',
+]
+const COOLDOWN_LOWER_B = [
+  'Figure-four glute stretch, 30s/side',
+  'Hamstring stretch, 30s/side',
+  'Hip-flexor stretch, 30s/side',
+]
+
+const WARMUP_CALISTHENICS = [
+  'Easy jog or jumping jacks (1 min)',
+  'Arm circles + shoulder rolls (1 min)',
+  'Bodyweight squats × 15 + leg swings, 30s/side (1 min)',
+  'Push-up to downward dog + cat-cow (1 min)',
+  'Dead hang + scapular pulls, 2–3 reps (1 min)',
+]
+const COOLDOWN_CALISTHENICS = [
+  'Doorway chest stretch, 30s/side',
+  "Child's pose lat stretch, 45s",
+  'Standing quad stretch, 30s/side',
   'Seated hamstring stretch, 30s/side',
   'Calf stretch against a wall, 30s/side',
 ]
 
-const WARMUP_PUSH = [
-  '2 min jumping jacks or jogging in place',
-  'Arm circles + open-book shoulder rotations (1 min)',
-  'Arm circles + push-up to downward dog (1 min)',
-  '2–3 ramp-up sets on the first press (1 min)',
-]
-const COOLDOWN_PUSH = [
-  'Doorway chest stretch, 30s/side',
-  'Overhead triceps stretch, 30s/side',
-  'Cross-body shoulder stretch, 30s/side',
-  "Child's pose, 60s",
-]
-
-const WARMUP_PULL = [
-  '2 min jumping jacks or jogging in place',
-  'Scapular retractions + shoulder rolls (1 min)',
-  'Cat-cow + thoracic rotations (1 min)',
-  '2–3 ramp-up sets on the first pull (1 min)',
-]
-const COOLDOWN_PULL = [
-  "Child's pose lat stretch, 60s",
-  'Cross-body rear-delt stretch, 30s/side',
-  'Doorway biceps stretch, 30s/side',
-  'Standing side bend + overhead reach, 30s/side',
-]
-
-const WARMUP_LEGS = [
-  '2 min jumping jacks or jogging in place',
-  'Glute bridges × 15 + bodyweight lateral squat walks (1 min)',
-  'Leg swings, 30s/side',
-  '2–3 ramp-up sets on the first movement (1 min)',
-]
-const COOLDOWN_LEGS = [
-  'Figure-4 glute stretch, 30s/side',
-  'Kneeling hip flexor stretch, 30s/side',
-  'Standing quad stretch, 30s/side',
-  'Seated hamstring stretch, 30s/side',
-]
-
 export const SESSIONS: Session[] = [
   {
-    key: 'upper',
-    title: 'Upper · Full',
+    key: 'upperA',
+    title: 'Day 1 — Upper A',
     order: 1,
-    warmup: WARMUP_UPPER,
-    cooldown: COOLDOWN_UPPER,
+    warmup: WARMUP_UPPER_A,
+    cooldown: COOLDOWN_UPPER_A,
     items: [
-      item(49, 4, 6, 10, '7–8'), // Incline Barbell Press
-      item(39, 3, 10, 12, '8'), // Flat DB Press
-      item(40, 4, 8, 12, '8'), // T-Bar Row
       item(22, 3, 8, 12, '8'), // Lat Pulldown
-      item(30, 3, 8, 12, '8'), // Seated DB Shoulder Press
-      item(11, 3, 12, 20, '9'), // Lateral Raise
-      item(41, 4, 15, 20, '9'), // Reverse Pec Deck
-      item(37, 3, 8, 12, '9'), // EZ-Bar Curl
-      item(12, 3, 10, 15, '9'), // Triceps Pushdown
-      item(42, 3, 10, 15, '9'), // Overhead Triceps Extension
-      item(4, 3, 10, 15, 'hard', 'core'), // Hanging Leg Raise
+      item(63, 3, 8, 12, '8'), // Plate-Loaded Row Machine
+      item(49, 3, 6, 10, '7–8'), // Incline Barbell Press
+      item(64, 3, 8, 12, '8'), // Plate-Loaded Chest Press
+      item(30, 2, 8, 12, '8'), // Seated DB Shoulder Press
+      item(11, 3, 12, 20, '9'), // Dumbbell Lateral Raise
+      item(41, 2, 12, 20, '9'), // Reverse Pec Deck
+      item(37, 4, 8, 12, '9'), // EZ-Bar Curl
+      item(12, 3, 10, 15, '9'), // Rope Triceps Pushdown
     ],
   },
   {
-    key: 'lower',
-    title: 'Lower · Legs',
+    key: 'lowerA',
+    title: 'Day 2 — Lower A',
     order: 2,
-    warmup: WARMUP_LOWER,
-    cooldown: COOLDOWN_LOWER,
+    warmup: WARMUP_LOWER_A,
+    cooldown: COOLDOWN_LOWER_A,
     items: [
-      item(1, 4, 6, 10, '7–8'), // Back Squat
-      item(2, 4, 8, 12, '7–8'), // Romanian Deadlift
-      item(43, 4, 10, 15, '8'), // Leg Press
-      item(44, 4, 10, 15, '9'), // Seated Leg Curl
-      item(15, 3, 10, 12, '8', 'per leg'), // Walking Lunge
-      item(5, 4, 10, 15, '9'), // Standing Calf Raise
+      item(1, 3, 6, 10, '7–8'), // Barbell Back Squat
+      item(2, 3, 8, 12, '7–8'), // Romanian Deadlift
+      item(43, 2, 10, 15, '8'), // Leg Press
+      item(44, 2, 10, 15, '9'), // Seated Leg Curl
+      item(5, 3, 10, 15, '9'), // Standing Calf Raise
+      item(4, 2, 10, 15, 'hard', 'core'), // Hanging Leg Raise
     ],
   },
   {
-    key: 'push',
-    title: 'Push · Chest / Shoulders / Triceps',
+    key: 'upperB',
+    title: 'Day 3 — Upper B',
     order: 3,
-    warmup: WARMUP_PUSH,
-    cooldown: COOLDOWN_PUSH,
+    warmup: WARMUP_UPPER_B,
+    cooldown: COOLDOWN_UPPER_B,
     items: [
-      item(7, 4, 6, 10, '7–8'), // Flat Barbell Bench Press
-      item(10, 3, 10, 12, '8'), // Incline DB Press
-      item(46, 3, 12, 15, '9'), // Cable Fly / Pec Deck
-      item(47, 4, 8, 12, '8'), // Machine Shoulder Press
-      item(11, 4, 12, 20, '9'), // Lateral Raise
-      item(23, 4, 15, 20, '9'), // Face Pull
-      item(48, 3, 10, 15, '8'), // Triceps Dips
-      item(42, 3, 10, 15, '9'), // Overhead Cable Triceps Extension
-      item(12, 3, 10, 15, '9'), // Rope Pushdown
-      item(58, 3, 12, 15, 'hard', 'core'), // Weighted Decline Sit-Up
-    ],
-  },
-  {
-    key: 'pull',
-    title: 'Pull · Back / Biceps / Rear Delts',
-    order: 4,
-    warmup: WARMUP_PULL,
-    cooldown: COOLDOWN_PULL,
-    items: [
-      item(54, 3, 5, 8, '8'), // Deadlift
-      item(50, 4, 8, 12, '8'), // Wide Lat Pulldown
-      item(52, 4, 8, 12, '8'), // Seated Cable Row
-      item(61, 4, 10, 12, '8', 'per arm'), // Single-Arm Chest-Supported Row
-      item(51, 3, 8, 12, '8'), // Close-Grip Lat Pulldown
-      item(55, 4, 15, 20, '9'), // Rear Delt Fly
-      item(24, 3, 8, 12, '9'), // Barbell Curl
+      item(65, 3, 6, 10, '7–8'), // Pull-Up / Neutral-Grip Lat Pulldown
+      item(66, 3, 10, 12, '8'), // Machine High Row
+      item(39, 3, 8, 12, '8'), // Flat DB Press
+      item(10, 3, 8, 12, '8'), // Incline DB Press
+      item(11, 3, 12, 20, '9'), // Dumbbell Lateral Raise
+      item(23, 2, 15, 20, '9'), // Face Pull / Rear Delt Fly
       item(36, 3, 10, 15, '9'), // Incline DB Curl
-      item(56, 3, 10, 15, '9'), // Hammer Curl
-      item(57, 3, 10, 15, '9'), // Preacher / Cable Curl
+      item(56, 2, 10, 15, '9'), // Hammer Curl
+      item(42, 3, 10, 15, '9'), // Overhead Cable Triceps Extension
+      item(48, 2, 8, 12, '8'), // Weighted / Assisted Dips
     ],
   },
   {
-    key: 'legs',
-    title: 'Legs · Quads / Hams / Glutes',
-    order: 5,
-    warmup: WARMUP_LEGS,
-    cooldown: COOLDOWN_LEGS,
+    key: 'lowerB',
+    title: 'Day 4 — Lower B + Arms',
+    order: 4,
+    warmup: WARMUP_LOWER_B,
+    cooldown: COOLDOWN_LOWER_B,
     items: [
-      item(13, 4, 8, 12, '8'), // Hack Squat / Front Squat
-      item(62, 4, 8, 12, '8'), // 45° Back Extension
-      item(28, 3, 8, 12, '8', 'per leg'), // Barbell Reverse Lunge
-      item(60, 3, 12, 20, '9'), // Leg Extension
-      item(45, 4, 10, 15, '9'), // Lying Leg Curl
-      item(18, 4, 15, 20, '9'), // Seated Calf Raise
-      item(59, 3, 12, 15, 'hard', 'core'), // Captain's Chair Leg Raise
-      item(29, 3, 8, 12, 'hard', 'core · or Pallof press'), // Ab Wheel / Pallof Press
+      item(13, 3, 8, 12, '8'), // Hack Squat / Front Squat
+      item(62, 3, 8, 12, '8'), // 45° Back Extension
+      item(45, 3, 10, 15, '9'), // Lying Leg Curl
+      item(60, 2, 12, 20, '9'), // Leg Extension
+      item(67, 2, 8, 12, '8', 'per leg'), // Bulgarian Split Squat
+      item(18, 3, 12, 20, '9'), // Seated Calf Raise
+      item(29, 2, 8, 15, 'hard', 'core · or Pallof press'), // Ab Wheel / Pallof Press
+      item(57, 3, 10, 15, '9'), // Preacher / Cable Curl
+      item(42, 2, 10, 15, '9'), // Overhead Cable Triceps Extension
+    ],
+  },
+  {
+    key: 'calisthenicsRun',
+    title: 'Calisthenics & Run Session',
+    order: 5,
+    warmup: WARMUP_CALISTHENICS,
+    cooldown: COOLDOWN_CALISTHENICS,
+    items: [
+      item(68, 1, null, 50, 'hard', 'slow + explosive tempo — work up to 50 reps'), // Close-Grip Push-Up
+      item(69, 1, null, 50, 'hard', 'slow + explosive tempo — work up to 50 reps'), // Push-Up
+      item(70, 1, null, 50, 'hard', 'slow + explosive tempo — work up to 50 reps'), // Wide-Grip Push-Up
+      item(71, 3, null, 50, 'hard', 'skip on gym leg days'), // Jumping Squat
+      item(72, 3, 12, 15, '8'), // Pull-Up
+      item(73, 3, 12, 15, '8'), // Chin-Up
+      item(74, 3, null, 100, 'hard', 'core · 100 swings/set'), // Leg Raise Swings
+      item(75, 3, null, 50, 'hard', 'core · 50 kicks/set'), // Bicycle Kicks
+      item(76, 3, null, null, 'hard', 'core · 1 minute hold/set'), // Plank
     ],
   },
 ]
@@ -395,44 +442,48 @@ function item(
 }
 
 // ── Week plan ────────────────────────────────────────────────────────────────
-// 5-day gym program, Mon–Fri; weekends rest. Cardio is done separately and is not
-// scheduled here. Fully editable in Program → Day editor.
+// Locked 4-day gym program: Upper A · Lower A · rest · Upper B · Lower B, plus
+// a Calisthenics & Run session on Saturday. Sunday stays a full rest day.
+// Fully editable in Program → Day editor.
 export const WEEK_PLAN: WeekPlanDay[] = [
   {
     day: 'Mon',
-    am: [{ type: 'gym', sessionKey: 'upper', minutes: 75 }],
+    am: [{ type: 'gym', sessionKey: 'upperA', minutes: 75 }],
     pm: [],
     isRest: false,
   },
   {
     day: 'Tue',
-    am: [{ type: 'gym', sessionKey: 'lower', minutes: 60 }],
+    am: [{ type: 'gym', sessionKey: 'lowerA', minutes: 60 }],
     pm: [],
     isRest: false,
   },
   {
     day: 'Wed',
-    am: [{ type: 'gym', sessionKey: 'push', minutes: 75 }],
+    am: [],
     pm: [],
-    isRest: false,
+    isRest: true,
   },
   {
     day: 'Thu',
-    am: [{ type: 'gym', sessionKey: 'pull', minutes: 75 }],
+    am: [{ type: 'gym', sessionKey: 'upperB', minutes: 75 }],
     pm: [],
     isRest: false,
   },
   {
     day: 'Fri',
-    am: [{ type: 'gym', sessionKey: 'legs', minutes: 65 }],
+    am: [{ type: 'gym', sessionKey: 'lowerB', minutes: 75 }],
     pm: [],
     isRest: false,
   },
   {
     day: 'Sat',
-    am: [],
+    am: [
+      { type: 'calisthenics', sessionKey: 'calisthenicsRun', minutes: 45 },
+      { type: 'run', runType: 'midPace', minutes: 25, text: '5 km mid-pace run · 4:45–5:00/km' },
+    ],
     pm: [],
-    isRest: true,
+    isRest: false,
   },
   {
     day: 'Sun',
@@ -448,6 +499,7 @@ export const RUNS: Run[] = [
   { key: 'interval', label: 'VO2 intervals', paceNote: '5k pace ~4:00/km', detail: '5 × 3 min @ 5k pace, 90s jog (or 6–8 × 400–800 m). VO2-max focus — go in fresh.' },
   { key: 'tempo', label: 'Tempo', paceNote: 'threshold ~4:20–4:30/km', detail: '20–30 min continuous, comfortably hard.' },
   { key: 'long', label: 'Long run', paceNote: '~5:00/km easy', detail: '60–90 min easy aerobic base.' },
+  { key: 'midPace', label: 'Mid pace', paceNote: '4:45–5:00/km', detail: '5 km @ 4:45–5:00/km, steady effort.' },
 ]
 
 export const METCONS: Metcon[] = [

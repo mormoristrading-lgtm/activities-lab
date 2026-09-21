@@ -179,6 +179,7 @@ const RUN_OPTIONS = [
   { value: 'interval', label: 'VO2 intervals' },
   { value: 'tempo', label: 'Tempo' },
   { value: 'long', label: 'Long run' },
+  { value: 'midPace', label: 'Mid pace' },
 ]
 
 /** Editor for one activity within a session. */

@@ -322,6 +322,7 @@ function RunForm({ onClose }: { onClose: () => void }) {
               { value: 'interval', label: 'VO2 intervals' },
               { value: 'tempo', label: 'Tempo' },
               { value: 'long', label: 'Long' },
+              { value: 'midPace', label: 'Mid pace' },
             ]}
           />
         </div>
