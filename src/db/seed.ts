@@ -116,6 +116,11 @@ export const EXERCISES: Exercise[] = [
   ex(55, 'rear-delt-fly', 'Rear Delt Fly', 'accessory', ['shoulders'], ['traps', 'middle back'], [
     'Bent over or on a chest-supported bench; lead with the pinkies.',
   ]),
+  ex(77, 'cuban-press', 'Cuban Press', 'accessory', ['shoulders'], ['traps', 'biceps'], [
+    'Rehab-style swap for overhead/shoulder press — light weight, rotator-cuff focused, not a pressing movement.',
+    'Upright row to elbow height → rotate forearms up to 90° (external rotation) → press overhead lightly → reverse the sequence back down.',
+    'Keep the load light; stop the set if the joint pinches.',
+  ]),
 
   // ── Triceps ───────────────────────────────────────────────────────────────
   ex(12, 'triceps-pushdown', 'Triceps Pushdown', 'accessory', ['triceps'], [], [
@@ -265,8 +270,11 @@ function ex(
 }
 
 // ── Sessions ─────────────────────────────────────────────────────────────────
-// Locked 4-day program (Upper-body priority): Upper A · Lower A · Upper B · Lower B.
-// Plus a 5th, non-gym Calisthenics & Run session on a rest day.
+// Locked 5-day gym split: Push · Pull · Legs · Upper (top-up) · Lower (top-up).
+// Push/Pull/Legs carry the heavy main lift for strength; the Upper/Lower
+// top-up days are pure higher-rep/isolation hypertrophy volume — no repeated
+// heavy compounds — to keep each day shorter than the old 4-day sessions.
+// Plus a 6th, non-gym Calisthenics & Run session on Saturday.
 // Each session gets its own timed warm-up and post-session stretch.
 const WARMUP_UPPER_A = [
   'Arm circles + shoulder rolls (30s)',
@@ -341,79 +349,91 @@ const COOLDOWN_CALISTHENICS = [
 
 export const SESSIONS: Session[] = [
   {
-    key: 'upperA',
-    title: 'Day 1 — Upper A',
+    key: 'push',
+    title: 'Day 1 — Push',
     order: 1,
     warmup: WARMUP_UPPER_A,
     cooldown: COOLDOWN_UPPER_A,
     items: [
-      item(22, 3, 8, 12, '8'), // Lat Pulldown
-      item(63, 3, 8, 12, '8'), // Plate-Loaded Row Machine
+      item(7, 4, 4, 6, '8'), // Flat Barbell Bench Press — main lift
       item(49, 3, 6, 10, '7–8'), // Incline Barbell Press
       item(64, 3, 8, 12, '8'), // Plate-Loaded Chest Press
-      item(30, 2, 8, 12, '8'), // Seated DB Shoulder Press
-      item(11, 3, 12, 20, '9'), // Dumbbell Lateral Raise
-      item(41, 2, 12, 20, '9'), // Reverse Pec Deck
-      item(37, 4, 8, 12, '9'), // EZ-Bar Curl
-      item(12, 3, 10, 15, '9'), // Rope Triceps Pushdown
+      item(77, 3, 12, 15, '7'), // Cuban Press (rehab-style swap for shoulder press)
+      item(46, 2, 12, 15, '9'), // Cable Fly / Pec Deck
+      item(48, 3, 8, 12, '8', 'full range — stop the set if the shoulder pinches'), // Triceps Dips (swap for Overhead Cable Triceps Extension)
+      item(12, 2, 10, 15, '9'), // Rope Triceps Pushdown
     ],
   },
   {
-    key: 'lowerA',
-    title: 'Day 2 — Lower A',
+    key: 'pull',
+    title: 'Day 2 — Pull',
     order: 2,
+    warmup: WARMUP_UPPER_B,
+    cooldown: COOLDOWN_UPPER_B,
+    items: [
+      item(54, 3, 4, 6, '8'), // Deadlift — main lift, kept low-volume for fatigue management
+      item(65, 4, 6, 10, '7–8'), // Pull-Up / Neutral-Grip Lat Pulldown
+      item(40, 3, 8, 12, '8'), // T-Bar Row (barbell V-handle row swap for Machine High Row)
+      item(52, 3, 10, 12, '8'), // Seated Cable Row
+      item(23, 3, 15, 20, '9'), // Face Pull
+      item(36, 3, 10, 15, '9'), // Incline DB Curl
+      item(56, 2, 10, 15, '9'), // Hammer Curl
+      item(58, 2, 10, 15, 'hard', 'core'), // Weighted Decline Sit-Up
+    ],
+  },
+  {
+    key: 'legs',
+    title: 'Day 3 — Legs',
+    order: 3,
     warmup: WARMUP_LOWER_A,
     cooldown: COOLDOWN_LOWER_A,
     items: [
-      item(1, 3, 6, 10, '7–8'), // Barbell Back Squat
-      item(2, 3, 8, 12, '7–8'), // Romanian Deadlift
-      item(43, 2, 10, 15, '8'), // Leg Press
-      item(44, 2, 10, 15, '9'), // Seated Leg Curl
+      item(1, 4, 5, 8, '8'), // Barbell Back Squat — main lift
+      item(2, 3, 8, 12, '8'), // Romanian Deadlift
+      item(43, 3, 10, 15, '8'), // Leg Press
+      item(45, 3, 10, 15, '9'), // Lying Leg Curl
+      item(67, 2, 8, 12, '8', 'per leg'), // Bulgarian Split Squat
       item(5, 3, 10, 15, '9'), // Standing Calf Raise
       item(4, 2, 10, 15, 'hard', 'core'), // Hanging Leg Raise
     ],
   },
   {
-    key: 'upperB',
-    title: 'Day 3 — Upper B',
-    order: 3,
-    warmup: WARMUP_UPPER_B,
-    cooldown: COOLDOWN_UPPER_B,
+    key: 'upperTopUp',
+    title: 'Day 4 — Upper (Hypertrophy Top-Up)',
+    order: 4,
+    warmup: WARMUP_UPPER_A,
+    cooldown: COOLDOWN_UPPER_A,
     items: [
-      item(65, 3, 6, 10, '7–8'), // Pull-Up / Neutral-Grip Lat Pulldown
-      item(66, 3, 10, 12, '8'), // Machine High Row
-      item(39, 3, 8, 12, '8'), // Flat DB Press
-      item(10, 3, 8, 12, '8'), // Incline DB Press
+      item(64, 3, 10, 15, '8'), // Plate-Loaded Chest Press — machine, no max-effort compounds
+      item(50, 3, 10, 15, '8'), // Wide Lat Pulldown
+      item(41, 3, 12, 20, '9'), // Reverse Pec Deck
       item(11, 3, 12, 20, '9'), // Dumbbell Lateral Raise
-      item(23, 2, 15, 20, '9'), // Face Pull / Rear Delt Fly
-      item(36, 3, 10, 15, '9'), // Incline DB Curl
-      item(56, 2, 10, 15, '9'), // Hammer Curl
-      item(42, 3, 10, 15, '9'), // Overhead Cable Triceps Extension
-      item(48, 2, 8, 12, '8'), // Weighted / Assisted Dips
+      item(63, 3, 10, 15, '8'), // Plate-Loaded Row Machine (swap for Single-Arm Chest-Supported Row)
+      item(37, 3, 10, 15, '9'), // EZ-Bar Curl
+      item(12, 2, 10, 15, '9'), // Rope Triceps Pushdown (swap for Skullcrusher)
     ],
   },
   {
-    key: 'lowerB',
-    title: 'Day 4 — Lower B + Arms',
-    order: 4,
+    key: 'lowerTopUp',
+    title: 'Day 5 — Lower (Hypertrophy Top-Up)',
+    order: 5,
     warmup: WARMUP_LOWER_B,
     cooldown: COOLDOWN_LOWER_B,
     items: [
-      item(13, 3, 8, 12, '8'), // Hack Squat / Front Squat
+      item(60, 3, 12, 20, '9'), // Leg Extension — isolation, no heavy squat/deadlift repeated
+      item(44, 3, 12, 20, '9'), // Seated Leg Curl
+      item(14, 3, 10, 15, '8'), // Hip Thrust
       item(62, 3, 8, 12, '8'), // 45° Back Extension
-      item(45, 3, 10, 15, '9'), // Lying Leg Curl
-      item(60, 2, 12, 20, '9'), // Leg Extension
-      item(67, 2, 8, 12, '8', 'per leg'), // Bulgarian Split Squat
+      item(15, 2, 10, 12, '8', 'per leg'), // Walking Lunge
       item(18, 3, 12, 20, '9'), // Seated Calf Raise
       item(29, 2, 8, 15, 'hard', 'core · or Pallof press'), // Ab Wheel / Pallof Press
-      item(57, 3, 10, 15, '9'), // Preacher / Cable Curl
-      item(42, 2, 10, 15, '9'), // Overhead Cable Triceps Extension
+      item(75, 2, null, 50, 'hard', 'core · 50 kicks/set'), // Bicycle Kicks
     ],
   },
   {
     key: 'calisthenicsRun',
     title: 'Calisthenics & Run Session',
-    order: 5,
+    order: 6,
     warmup: WARMUP_CALISTHENICS,
     cooldown: COOLDOWN_CALISTHENICS,
     items: [
@@ -442,37 +462,37 @@ function item(
 }
 
 // ── Week plan ────────────────────────────────────────────────────────────────
-// Locked 4-day gym program: Upper A · Lower A · rest · Upper B · Lower B, plus
-// a Calisthenics & Run session on Saturday. Sunday stays a full rest day.
+// Locked 5-day gym split: Push · Pull · Legs · Upper top-up · Lower top-up,
+// plus a Calisthenics & Run session on Saturday. Sunday stays a full rest day.
 // Fully editable in Program → Day editor.
 export const WEEK_PLAN: WeekPlanDay[] = [
   {
     day: 'Mon',
-    am: [{ type: 'gym', sessionKey: 'upperA', minutes: 75 }],
+    am: [{ type: 'gym', sessionKey: 'push', minutes: 65 }],
     pm: [],
     isRest: false,
   },
   {
     day: 'Tue',
-    am: [{ type: 'gym', sessionKey: 'lowerA', minutes: 60 }],
+    am: [{ type: 'gym', sessionKey: 'pull', minutes: 65 }],
     pm: [],
     isRest: false,
   },
   {
     day: 'Wed',
-    am: [],
+    am: [{ type: 'gym', sessionKey: 'legs', minutes: 65 }],
     pm: [],
-    isRest: true,
+    isRest: false,
   },
   {
     day: 'Thu',
-    am: [{ type: 'gym', sessionKey: 'upperB', minutes: 75 }],
+    am: [{ type: 'gym', sessionKey: 'upperTopUp', minutes: 50 }],
     pm: [],
     isRest: false,
   },
   {
     day: 'Fri',
-    am: [{ type: 'gym', sessionKey: 'lowerB', minutes: 75 }],
+    am: [{ type: 'gym', sessionKey: 'lowerTopUp', minutes: 45 }],
     pm: [],
     isRest: false,
   },
