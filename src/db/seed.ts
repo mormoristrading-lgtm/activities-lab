@@ -337,14 +337,6 @@ const COOLDOWN_UPPER_B = [
   'Biceps wall stretch, 30s/side',
 ]
 
-const WARMUP_LOWER_B = [
-  'Easy treadmill walk or bike (30s)',
-  'Glute bridges (30s)',
-  'Controlled bodyweight squats (30s)',
-  'Leg swings, 15s/leg',
-  'Bodyweight good mornings (30s)',
-  'Alternating lateral lunges (30s)',
-]
 const COOLDOWN_LOWER_B = [
   'Figure-four glute stretch, 30s/side',
   'Hamstring stretch, 30s/side',
