@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db/db'
 import { updateDaily } from '../lib/daily'
+import { buzz } from '../lib/haptics'
 import { bodyweightSeries, weeklyPace } from '../lib/progress'
 import Card from './Card'
 import Modal from './Modal'
@@ -48,6 +49,7 @@ export default function WeightGoalCard() {
 
   async function save() {
     if (input == null) return
+    buzz()
     await updateDaily(() => ({ bodyweight_kg: input }))
     setInput(null)
   }

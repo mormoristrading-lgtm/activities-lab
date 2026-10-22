@@ -20,6 +20,7 @@ import Card from '../../components/Card'
 import Modal from '../../components/Modal'
 import ExerciseThumb from '../../components/ExerciseThumb'
 import LikeButton from '../../components/LikeButton'
+import RestTimer from '../../components/RestTimer'
 import { NumberField, SelectField } from '../../components/Field'
 
 /** mm:ss for the live session stopwatch. */
@@ -307,14 +308,34 @@ export default function SessionLogger() {
               <LikeButton exerciseId={item.exerciseId} size="sm" />
             </div>
 
-            <div className="mt-3 flex items-center gap-3">
-              <div className="w-28">
+            {/* Big ± buttons step by one plate jump — no keyboard needed mid-set */}
+            <div className="mt-3 flex items-center gap-2">
+              <button
+                type="button"
+                aria-label={`Decrease ${ex?.name ?? 'exercise'} weight by ${inc} kg`}
+                onClick={() => setWeight(ei, Math.max(0, round1((weight ?? prevWeight) - inc)))}
+                className="grid h-11 w-11 shrink-0 place-items-center rounded-card-sm border text-xl leading-none"
+                style={{ borderColor: 'var(--line)', color: 'var(--dim)' }}
+              >
+                −
+              </button>
+              <div className="w-24">
                 <NumberField
                   value={weight}
+                  step={inc}
                   onChange={(v) => setWeight(ei, v)}
                   ariaLabel={`${ex?.name ?? 'Exercise'} weight (kg)`}
                 />
               </div>
+              <button
+                type="button"
+                aria-label={`Increase ${ex?.name ?? 'exercise'} weight by ${inc} kg`}
+                onClick={() => setWeight(ei, round1((weight ?? prevWeight) + inc))}
+                className="grid h-11 w-11 shrink-0 place-items-center rounded-card-sm text-xl leading-none"
+                style={{ background: 'var(--accent)', color: 'var(--on-accent)' }}
+              >
+                +
+              </button>
               <span className="text-xs" style={{ color: 'var(--muted)' }}>
                 kg
               </span>
@@ -354,6 +375,18 @@ export default function SessionLogger() {
           </Card>
         )
       })}
+
+      {/* Sits after the exercises so `sticky bottom` pins it above the nav the whole time you scroll them */}
+      <div
+        className="sticky z-10 -mx-1 rounded-card border p-2 shadow-sm backdrop-blur"
+        style={{
+          bottom: 'calc(var(--safe-bottom) + 4.25rem)',
+          borderColor: 'var(--line)',
+          background: 'color-mix(in srgb, var(--bg) 92%, transparent)',
+        }}
+      >
+        <RestTimer />
+      </div>
 
       {session.cooldown.length > 0 && (
         <Card className="p-3">
