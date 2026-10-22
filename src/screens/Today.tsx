@@ -8,6 +8,7 @@ import ContourBackdrop from '../components/ContourBackdrop'
 import Ring from '../components/Ring'
 import Screen from '../components/Screen'
 import WeightGoalCard from '../components/WeightGoalCard'
+import Nudges from '../components/Nudges'
 import Standards from './lab/Standards'
 
 const SLOT_LABEL: Record<DaySlot['type'], string> = {
@@ -91,6 +92,8 @@ export default function Today({ onStartSession }: { onStartSession: () => void }
 
   return (
     <Screen eyebrow="Activities Lab" title="Today">
+      <Nudges />
+
       {/* Hero: today's session */}
       <Card className="relative overflow-hidden">
         <ContourBackdrop className="pointer-events-none absolute inset-0 h-full w-full" />

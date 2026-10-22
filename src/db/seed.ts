@@ -4,7 +4,6 @@ import type {
   Session,
   WeekPlanDay,
   Run,
-  Metcon,
   Nutrition,
   MealPreset,
   Guidance,
@@ -532,13 +531,6 @@ export const RUNS: Run[] = [
   { key: 'midPace', label: 'Mid pace', paceNote: '4:45–5:00/km', detail: '5 km @ 4:45–5:00/km, steady effort.' },
 ]
 
-export const METCONS: Metcon[] = [
-  { name: 'Bodyweight AMRAP', format: 'AMRAP 15 min', detail: '5 pull-ups · 10 push-ups · 15 air squats' },
-  { name: 'KB/DB EMOM', format: 'EMOM 16 min', detail: 'odd: 12 KB/DB swings · even: 8 burpees' },
-  { name: 'Triplet', format: '3 rounds for time', detail: '12 DB thrusters · 9 pull-ups · 400 m run' },
-  { name: 'Couplet 21-15-9', format: 'For time', detail: 'light deadlifts (~40% working) · burpees' },
-]
-
 // ── Nutrition / meals ────────────────────────────────────────────────────────
 export const NUTRITION: Nutrition = {
   id: 'targets',
@@ -673,7 +665,6 @@ export async function seedDatabase(db: AppDB): Promise<void> {
     db.sessions.bulkAdd(SESSIONS),
     db.weekPlan.bulkAdd(WEEK_PLAN),
     db.runs.bulkAdd(RUNS),
-    db.metcons.bulkAdd(METCONS),
     db.nutrition.add(NUTRITION),
     db.mealPresets.bulkAdd(MEAL_PRESETS),
     db.guidance.bulkAdd(GUIDANCE),
@@ -688,7 +679,7 @@ export async function seedDatabase(db: AppDB): Promise<void> {
 /** Clear content tables and re-seed (logs are preserved). Used by Settings later. */
 export async function resetToSeed(db: AppDB): Promise<void> {
   const content = [
-    db.exercises, db.sessions, db.weekPlan, db.runs, db.metcons, db.nutrition,
+    db.exercises, db.sessions, db.weekPlan, db.runs, db.nutrition,
     db.mealPresets, db.guidance, db.goals, db.standardsDef, db.reminders,
     db.motivation, db.settings,
   ]

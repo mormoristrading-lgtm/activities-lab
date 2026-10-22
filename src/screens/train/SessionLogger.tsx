@@ -323,10 +323,14 @@ export default function SessionLogger() {
             {/* previous reference + e1RM + progression suggestion */}
             <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
               {prevWeight > 0 && (
-                <span style={{ color: 'var(--muted)' }}>prev: {prevWeight} kg</span>
+                <span style={{ color: 'var(--muted)' }}>last: {prevWeight} kg</span>
               )}
-              {ex?.targetWeight != null && (
-                <span style={{ color: 'var(--accent-2)' }}>target {ex.targetWeight} kg</span>
+              {ex?.targetWeight != null ? (
+                <span style={{ color: 'var(--accent-2)' }}>→ aim for {ex.targetWeight} kg</span>
+              ) : (
+                prevWeight > 0 && (
+                  <span style={{ color: 'var(--dim)' }}>→ try {round1(prevWeight + inc)} kg once every set lands</span>
+                )
               )}
               {e1rm != null && (
                 <span style={{ color: 'var(--dim)' }}>e1RM ~{round1(e1rm)} kg (est)</span>

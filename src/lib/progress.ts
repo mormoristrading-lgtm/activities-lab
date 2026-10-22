@@ -28,6 +28,20 @@ export function bodyweightSeries(daily: DailyLog[]): BWPoint[] {
   })
 }
 
+/** Weekly bodyweight trend (kg/week) from the recent 7-day-avg series — null without enough data. */
+export function weeklyPace(points: BWPoint[]): number | null {
+  if (points.length < 2) return null
+  const last = points.at(-1)!
+  const lastT = parseLocalISO(last.date).getTime()
+  const windowStart = lastT - 21 * DAY
+  const inWindow = points.filter((p) => parseLocalISO(p.date).getTime() >= windowStart)
+  const first = inWindow[0]
+  if (!first || first.date === last.date) return null
+  const days = (lastT - parseLocalISO(first.date).getTime()) / DAY
+  if (days < 3) return null
+  return Math.round(((last.avg - first.avg) / days) * 7 * 100) / 100
+}
+
 export interface VolumePoint {
   date: string
   volume: number

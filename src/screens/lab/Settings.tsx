@@ -40,6 +40,7 @@ export function SettingsBody() {
   const theme: ThemeName = isThemeName(settings.theme) ? settings.theme : 'terra'
   const zoom = typeof settings.zoomPercent === 'number' ? settings.zoomPercent : DEFAULT_ZOOM
   const restNotif = settings.restNotifications !== false // default on
+  const lastBackupAt = settings.lastBackupAt as string | undefined
 
   async function onExport() {
     setBusy(true)
@@ -181,6 +182,9 @@ export function SettingsBody() {
       <p className="mb-3 text-xs" style={{ color: 'var(--muted)' }}>
         All data is stored on this device — clearing the browser would erase it. Save a backup
         regularly (Share sends it to Files / iCloud / email).
+      </p>
+      <p className="mb-3 text-xs font-medium" style={{ color: lastBackupAt ? 'var(--dim)' : 'var(--accent)' }}>
+        {lastBackupAt ? `Last backup: ${lastBackupAt}` : 'No backup yet'}
       </p>
       <div className="mb-3">
         <Label>Backup reminder</Label>

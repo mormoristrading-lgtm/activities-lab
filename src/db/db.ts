@@ -4,7 +4,6 @@ import type {
   Session,
   WeekPlanDay,
   Run,
-  Metcon,
   Nutrition,
   MealPreset,
   Guidance,
@@ -30,7 +29,6 @@ export const db = new Dexie('ActivitiesLab') as Dexie & {
   sessions: EntityTable<Session, 'id'>
   weekPlan: Table<WeekPlanDay, string>
   runs: EntityTable<Run, 'id'>
-  metcons: EntityTable<Metcon, 'id'>
   nutrition: Table<Nutrition, string>
   mealPresets: EntityTable<MealPreset, 'id'>
   guidance: EntityTable<Guidance, 'id'>
@@ -155,6 +153,10 @@ db.version(10).stores({}).upgrade(async (tx) => {
   const existing = await tx.table('settings').get('weightGoalKg')
   if (!existing) await tx.table('settings').add({ key: 'weightGoalKg', value: 70 })
 })
+
+// v11 — drops the `metcons` table: it was seeded content with no screen ever
+// reading it. Dead data, removed for simplicity; nothing else changes.
+db.version(11).stores({ metcons: null })
 
 // Seed exactly once, atomically, when the DB is first created.
 db.on('populate', () => seedDatabase(db))

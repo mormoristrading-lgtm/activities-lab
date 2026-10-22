@@ -27,15 +27,3 @@ export default function Screen({
     </section>
   )
 }
-
-/** A small "coming in a later phase" note used on the placeholder screens. */
-export function PhaseNote({ children }: { children: ReactNode }) {
-  return (
-    <p
-      className="mt-4 rounded-card-sm border border-dashed px-4 py-3 text-sm"
-      style={{ borderColor: 'var(--line)', color: 'var(--muted)' }}
-    >
-      {children}
-    </p>
-  )
-}

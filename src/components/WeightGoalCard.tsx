@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db/db'
 import { updateDaily } from '../lib/daily'
+import { bodyweightSeries, weeklyPace } from '../lib/progress'
 import Card from './Card'
 import Modal from './Modal'
 import { Label, NumberField } from './Field'
@@ -15,18 +16,35 @@ export default function WeightGoalCard() {
     const rows = await db.dailyLog.orderBy('date').toArray()
     const latest = rows.slice().reverse().find((r) => r.bodyweight_kg != null)?.bodyweight_kg ?? null
     const target = await db.settings.get('weightGoalKg')
-    return { latest, target: typeof target?.value === 'number' ? target.value : 70 }
+    const pace = weeklyPace(bodyweightSeries(rows))
+    return { latest, pace, target: typeof target?.value === 'number' ? target.value : 70 }
   }, [])
 
   const [input, setInput] = useState<number | null>(null)
   const [editingTarget, setEditingTarget] = useState(false)
 
   if (!data) return null
-  const { latest, target } = data
+  const { latest, pace, target } = data
 
   const current = latest ?? START_WEIGHT_KG
   const span = target - START_WEIGHT_KG
   const pct = span !== 0 ? Math.max(0, Math.min(100, ((current - START_WEIGHT_KG) / span) * 100)) : 0
+
+  // Only project a date when gaining (or losing) in the direction that actually
+  // closes the gap to target — a flat/wrong-direction trend has nothing useful to say.
+  const remaining = target - current
+  let paceLabel: string | null = null
+  if (pace != null && Math.abs(pace) >= 0.05) {
+    const closing = (remaining > 0 && pace > 0) || (remaining < 0 && pace < 0)
+    if (closing) {
+      const weeksToGo = Math.abs(remaining / pace)
+      const eta = new Date(Date.now() + weeksToGo * 7 * 86_400_000)
+      const etaLabel = eta.toLocaleDateString(undefined, { day: 'numeric', month: 'short' })
+      paceLabel = `${pace > 0 ? '+' : ''}${pace} kg/week — on pace for ${target} kg by ${etaLabel}`
+    } else {
+      paceLabel = `${pace > 0 ? '+' : ''}${pace} kg/week — trending away from target`
+    }
+  }
 
   async function save() {
     if (input == null) return
@@ -51,6 +69,11 @@ export default function WeightGoalCard() {
       <div className="mt-2 h-1.5 rounded-full" style={{ background: 'var(--track)' }}>
         <div className="h-1.5 rounded-full" style={{ width: `${pct}%`, background: 'var(--accent-2)', transition: 'width .3s' }} />
       </div>
+      {paceLabel && (
+        <p className="mt-1.5 text-xs tabular-nums" style={{ color: 'var(--muted)' }}>
+          {paceLabel}
+        </p>
+      )}
 
       <div className="mt-3 flex items-end gap-2">
         <div className="flex-1">

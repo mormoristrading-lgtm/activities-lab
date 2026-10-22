@@ -98,13 +98,6 @@ export interface Run {
   detail: string
 }
 
-export interface Metcon {
-  id?: number
-  name: string
-  format: string
-  detail: string
-}
-
 /** Single-row table (id: 'targets'). */
 export interface Nutrition {
   id: string

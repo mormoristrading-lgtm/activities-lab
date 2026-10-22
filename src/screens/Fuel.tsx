@@ -7,11 +7,17 @@ import { addMeal, removeMeal, updateDaily } from '../lib/daily'
 import Card from '../components/Card'
 import Modal from '../components/Modal'
 import Screen from '../components/Screen'
+import SegmentedControl from '../components/SegmentedControl'
 import { IconButton, Label, NumberField, SelectField, TextField } from '../components/Field'
+import FoodGuide from './fuel/FoodGuide'
 
 const SLOTS: MealSlot[] = ['Breakfast', 'Lunch', 'Dinner', 'Shake', 'Snack']
 
+type FuelSegment = 'today' | 'guide'
+
 export default function Fuel() {
+  const [segment, setSegment] = useState<FuelSegment>('today')
+
   const data = useLiveQuery(async () => {
     const nutrition = await db.nutrition.get('targets')
     const daily = await db.dailyLog.get(todayISO())
@@ -34,6 +40,25 @@ export default function Fuel() {
   const { nutrition, daily, presets } = data
   const meals = daily?.meals ?? []
 
+  if (segment === 'guide') {
+    return (
+      <Screen eyebrow="Fuel" title="Fuel">
+        <div className="mb-4">
+          <SegmentedControl
+            ariaLabel="Fuel section"
+            segments={[
+              { key: 'today', label: 'Today' },
+              { key: 'guide', label: 'Food guide' },
+            ]}
+            value={segment}
+            onChange={setSegment}
+          />
+        </div>
+        <FoodGuide />
+      </Screen>
+    )
+  }
+
   const macros = [
     { label: 'Calories', val: daily?.calories ?? 0, target: nutrition.calories, unit: '', color: 'var(--accent)' },
     { label: 'Protein', val: daily?.protein_g ?? 0, target: nutrition.protein_g, unit: 'g', color: 'var(--good)' },
@@ -46,6 +71,18 @@ export default function Fuel() {
 
   return (
     <Screen eyebrow="Fuel" title="Fuel">
+      <div className="mb-4">
+        <SegmentedControl
+          ariaLabel="Fuel section"
+          segments={[
+            { key: 'today', label: 'Today' },
+            { key: 'guide', label: 'Food guide' },
+          ]}
+          value={segment}
+          onChange={setSegment}
+        />
+      </div>
+
       {/* Macros */}
       <Card className="p-4">
         <div className="mb-3 flex items-center justify-between">

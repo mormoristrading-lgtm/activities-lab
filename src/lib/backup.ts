@@ -8,12 +8,6 @@ async function stamp(): Promise<void> {
   await db.settings.put({ key: BACKUP_KEY, value: todayISO() })
 }
 
-/** ISO date of the last successful backup/share, or null. */
-export async function getLastBackupAt(): Promise<string | null> {
-  const s = await db.settings.get(BACKUP_KEY)
-  return (s?.value as string) ?? null
-}
-
 /** Export every table to a single JSON file and trigger a download. */
 export async function exportBackup(): Promise<void> {
   const blob = await exportDB(db, { prettyJson: true })
