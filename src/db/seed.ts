@@ -182,6 +182,16 @@ export const EXERCISES: Exercise[] = [
     'Upper arm on the pad; no bounce out of the bottom.',
   ]),
 
+  // ── Forearms ──────────────────────────────────────────────────────────────
+  ex(78, 'wrist-curl', 'Barbell Wrist Curl', 'accessory', ['forearms'], [], [
+    'Forearms on the bench/thighs, wrists just off the edge; curl up through full wrist flexion.',
+    'Small muscle, light load — slow and controlled, no bouncing.',
+  ]),
+  ex(79, 'reverse-curl', 'Reverse Curl', 'accessory', ['forearms', 'biceps'], [], [
+    'Overhand (pronated) grip on an EZ-bar/barbell; curl without swinging.',
+    'Keep it light and strict — builds forearm size and the brachialis under the biceps.',
+  ]),
+
   // ── Core ──────────────────────────────────────────────────────────────────
   ex(4, 'hanging-leg-raise', 'Hanging Leg Raise', 'accessory', ['abdominals'], ['hip flexors'], [
     'Dead hang, posterior pelvic tilt; raise with the abs, not momentum.',
@@ -270,10 +280,19 @@ function ex(
 }
 
 // ── Sessions ─────────────────────────────────────────────────────────────────
-// Locked 5-day gym split: Push · Pull · Legs · Upper (top-up) · Lower (top-up).
-// Push/Pull/Legs carry the heavy main lift for strength; the Upper/Lower
-// top-up days are pure higher-rep/isolation hypertrophy volume — no repeated
-// heavy compounds — to keep each day shorter than the old 4-day sessions.
+// Locked 5-day gym split: Push · Pull · Upper #2 (Chest/Back/Delts) · Legs ·
+// Arms, Forearms & Core. Priorities: V-taper (lat/delt width) and whole-arm
+// growth (shoulder → forearm) get the extra volume and frequency, but every
+// major muscle (chest, triceps, back thickness, legs, calves) still gets a
+// real 2×/week dose — legs are trimmed moderately, not gutted, and chest/
+// triceps get a genuine 2nd weekly touch on Day 3 rather than disappearing.
+// No overhead/shoulder-press variants anywhere (shoulder tendonitis +
+// instability — Cuban Press stands in for pressing, and face pulls/rear-delt
+// work appear twice a week as rotator-cuff prehab). Push/Pull/Legs carry the
+// heavy main lift for strength; Days 3 and 5 are pure higher-rep isolation
+// volume — no repeated heavy compounds. Legs sits on Day 4 (not Day 3) so
+// Pull's deadlift and Legs' squat/RDL aren't on back-to-back days — Day 3's
+// isolation work gives the lower back/hamstrings a day to recover between.
 // Plus a 6th, non-gym Calisthenics & Run session on Saturday.
 // Each session gets its own timed warm-up and post-session stretch.
 const WARMUP_UPPER_A = [
@@ -355,13 +374,13 @@ export const SESSIONS: Session[] = [
     warmup: WARMUP_UPPER_A,
     cooldown: COOLDOWN_UPPER_A,
     items: [
-      item(7, 4, 4, 6, '8'), // Flat Barbell Bench Press — main lift
-      item(49, 3, 6, 10, '7–8'), // Incline Barbell Press
-      item(64, 3, 8, 12, '8'), // Plate-Loaded Chest Press
-      item(77, 3, 12, 15, '7'), // Cuban Press (rehab-style swap for shoulder press)
-      item(46, 2, 12, 15, '9'), // Cable Fly / Pec Deck
-      item(48, 3, 8, 12, '8', 'full range — stop the set if the shoulder pinches'), // Triceps Dips (swap for Overhead Cable Triceps Extension)
-      item(12, 2, 10, 15, '9'), // Rope Triceps Pushdown
+      item(7, 4, 4, 6, '8'), // Flat Barbell Bench Press — main lift, heaviest first
+      item(10, 4, 8, 12, '8'), // Incline DB Press — 2nd compound while still fresh
+      item(48, 3, 8, 12, '8', 'full range — stop the set if the shoulder pinches'), // Triceps Dips — compound, before isolation work
+      item(46, 3, 12, 15, '9'), // Cable Fly / Pec Deck — chest isolation
+      item(11, 4, 15, 20, '9', 'raise to shoulder height only, no higher'), // Lateral Raise — delt isolation
+      item(77, 4, 12, 15, '7'), // Cuban Press — light rehab work, after the joint is warm
+      item(12, 3, 10, 15, '9'), // Rope Triceps Pushdown — smallest muscle, isolated last
     ],
   },
   {
@@ -372,62 +391,61 @@ export const SESSIONS: Session[] = [
     cooldown: COOLDOWN_UPPER_B,
     items: [
       item(54, 3, 4, 6, '8'), // Deadlift — main lift, kept low-volume for fatigue management
-      item(65, 4, 6, 10, '7–8'), // Pull-Up / Neutral-Grip Lat Pulldown
-      item(40, 3, 8, 12, '8'), // T-Bar Row (barbell V-handle row swap for Machine High Row)
-      item(52, 3, 10, 12, '8'), // Seated Cable Row
-      item(23, 3, 15, 20, '9'), // Face Pull
+      item(50, 5, 8, 12, '8'), // Wide Lat Pulldown — back-width priority, 1st of 2 weekly exposures (bumped: vertical-pull volume was under the 10-12 set target for lat width)
+      item(61, 3, 10, 12, '8'), // Single-Arm Chest-Supported Row (swap for T-Bar Row — chest pad removes shoulder/low-back shear)
+      item(23, 3, 15, 20, '9'), // Face Pull — rear delt + rotator-cuff health, 1st of 2 weekly exposures
+      item(55, 4, 12, 15, '9'), // Rear Delt Fly — V-taper rear-delt width
       item(36, 3, 10, 15, '9'), // Incline DB Curl
-      item(56, 2, 10, 15, '9'), // Hammer Curl
-      item(58, 2, 10, 15, 'hard', 'core'), // Weighted Decline Sit-Up
+      item(56, 4, 10, 15, '9'), // Hammer Curl — biceps + forearm
+      item(58, 2, 10, 15, 'hard', 'core'), // Weighted Decline Sit-Up — your pick for ab work
     ],
   },
   {
     key: 'legs',
-    title: 'Day 3 — Legs',
-    order: 3,
+    title: 'Day 4 — Legs',
+    order: 4,
     warmup: WARMUP_LOWER_A,
     cooldown: COOLDOWN_LOWER_A,
     items: [
-      item(1, 4, 5, 8, '8'), // Barbell Back Squat — main lift
-      item(2, 3, 8, 12, '8'), // Romanian Deadlift
-      item(43, 3, 10, 15, '8'), // Leg Press
-      item(45, 3, 10, 15, '9'), // Lying Leg Curl
-      item(67, 2, 8, 12, '8', 'per leg'), // Bulgarian Split Squat
-      item(5, 3, 10, 15, '9'), // Standing Calf Raise
-      item(4, 2, 10, 15, 'hard', 'core'), // Hanging Leg Raise
+      item(1, 4, 5, 8, '8'), // Barbell Back Squat — main lift, heaviest first
+      item(2, 4, 8, 12, '8'), // Romanian Deadlift — 2nd compound, hip-hinge pattern
+      item(43, 4, 10, 15, '8'), // Leg Press — secondary compound
+      item(67, 3, 8, 12, '8', 'per leg'), // Bulgarian Split Squat — unilateral, before pure isolation
+      item(62, 3, 8, 12, '8'), // 45° Back Extension — trimmed; posterior chain already loaded by Squat/RDL/Deadlift this week
+      item(5, 4, 10, 15, '9'), // Standing Calf Raise — isolation
+      item(4, 3, 10, 15, 'hard', 'core'), // Hanging Leg Raise — core, last
     ],
   },
   {
-    key: 'upperTopUp',
-    title: 'Day 4 — Upper (Hypertrophy Top-Up)',
-    order: 4,
+    key: 'upperTwo',
+    title: 'Day 3 — Upper (Chest · Back · Delts)',
+    order: 3,
     warmup: WARMUP_UPPER_A,
     cooldown: COOLDOWN_UPPER_A,
     items: [
-      item(64, 3, 10, 15, '8'), // Plate-Loaded Chest Press — machine, no max-effort compounds
-      item(50, 3, 10, 15, '8'), // Wide Lat Pulldown
-      item(41, 3, 12, 20, '9'), // Reverse Pec Deck
-      item(11, 3, 12, 20, '9'), // Dumbbell Lateral Raise
-      item(63, 3, 10, 15, '8'), // Plate-Loaded Row Machine (swap for Single-Arm Chest-Supported Row)
-      item(37, 3, 10, 15, '9'), // EZ-Bar Curl
-      item(12, 2, 10, 15, '9'), // Rope Triceps Pushdown (swap for Skullcrusher)
+      item(64, 4, 10, 15, '8'), // Plate-Loaded Chest Press — chest's 2nd weekly exposure, restored (one movement, 4 sets — not redundant volume)
+      item(65, 5, 8, 12, '8'), // Pull-Up / Neutral-Grip Lat Pulldown — 2nd WIDTH exposure, bumped for the same reason
+      item(41, 4, 15, 20, '9'), // Reverse Pec Deck — 2nd rear-delt exposure
+      item(11, 4, 15, 20, '9', 'raise to shoulder height only, no higher'), // Lateral Raise — 2nd delt exposure
+      item(32, 4, 10, 12, '8'), // Skullcrusher — triceps LONG HEAD (lying, shoulder-safer than standing overhead cable extension)
     ],
   },
   {
-    key: 'lowerTopUp',
-    title: 'Day 5 — Lower (Hypertrophy Top-Up)',
+    key: 'armsForearms',
+    title: 'Day 5 — Arms, Forearms & Leg Finishers',
     order: 5,
-    warmup: WARMUP_LOWER_B,
+    warmup: WARMUP_UPPER_B,
     cooldown: COOLDOWN_LOWER_B,
     items: [
-      item(60, 3, 12, 20, '9'), // Leg Extension — isolation, no heavy squat/deadlift repeated
-      item(44, 3, 12, 20, '9'), // Seated Leg Curl
-      item(14, 3, 10, 15, '8'), // Hip Thrust
-      item(62, 3, 8, 12, '8'), // 45° Back Extension
-      item(15, 2, 10, 12, '8', 'per leg'), // Walking Lunge
-      item(18, 3, 12, 20, '9'), // Seated Calf Raise
-      item(29, 2, 8, 15, 'hard', 'core · or Pallof press'), // Ab Wheel / Pallof Press
-      item(75, 2, null, 50, 'hard', 'core · 50 kicks/set'), // Bicycle Kicks
+      item(37, 3, 10, 15, '9'), // EZ-Bar Curl — kept this one curl variation per the balance review, dropped Preacher Curl's overlap
+      item(12, 3, 10, 15, '9'), // Rope Triceps Pushdown — this "arms" day had biceps + forearms but no triceps; added for symmetry
+      item(79, 2, 10, 15, '9'), // Reverse Curl — forearm extensors + brachialis, distinct from the biceps curls
+      item(78, 3, 12, 20, '9'), // Barbell Wrist Curl — direct forearm volume
+      item(23, 3, 15, 20, '9'), // Face Pull — 2nd rotator-cuff/rear-delt exposure
+      item(44, 4, 10, 15, '9'), // Seated Leg Curl — moved off Legs day to keep that session shorter
+      item(18, 2, 12, 20, '9'), // Seated Calf Raise — keeps calves at 2×/week
+      item(29, 3, 8, 15, 'hard', 'core · or Pallof press'), // Ab Wheel / Pallof Press
+      item(75, 2, null, 50, 'hard', 'core · 50 kicks/set'), // Bicycle Kicks — your ab-volume addition, kept
     ],
   },
   {
@@ -462,37 +480,37 @@ function item(
 }
 
 // ── Week plan ────────────────────────────────────────────────────────────────
-// Locked 5-day gym split: Push · Pull · Legs · Upper top-up · Lower top-up,
-// plus a Calisthenics & Run session on Saturday. Sunday stays a full rest day.
-// Fully editable in Program → Day editor.
+// Locked 5-day gym split: Push · Pull · Upper #2 · Legs · Arms, Forearms &
+// Core, plus a Calisthenics & Run session on Saturday. Sunday
+// stays a full rest day. Fully editable in Program → Day editor.
 export const WEEK_PLAN: WeekPlanDay[] = [
   {
     day: 'Mon',
-    am: [{ type: 'gym', sessionKey: 'push', minutes: 65 }],
+    am: [{ type: 'gym', sessionKey: 'push', minutes: 62 }],
     pm: [],
     isRest: false,
   },
   {
     day: 'Tue',
-    am: [{ type: 'gym', sessionKey: 'pull', minutes: 65 }],
+    am: [{ type: 'gym', sessionKey: 'pull', minutes: 67 }],
     pm: [],
     isRest: false,
   },
   {
     day: 'Wed',
-    am: [{ type: 'gym', sessionKey: 'legs', minutes: 65 }],
+    am: [{ type: 'gym', sessionKey: 'upperTwo', minutes: 56 }],
     pm: [],
     isRest: false,
   },
   {
     day: 'Thu',
-    am: [{ type: 'gym', sessionKey: 'upperTopUp', minutes: 50 }],
+    am: [{ type: 'gym', sessionKey: 'legs', minutes: 61 }],
     pm: [],
     isRest: false,
   },
   {
     day: 'Fri',
-    am: [{ type: 'gym', sessionKey: 'lowerTopUp', minutes: 45 }],
+    am: [{ type: 'gym', sessionKey: 'armsForearms', minutes: 65 }],
     pm: [],
     isRest: false,
   },
@@ -573,13 +591,23 @@ export const GUIDANCE: Guidance[] = [
   },
   {
     order: 3,
-    title: 'Volume is kept high — recover for it',
-    body: 'Each muscle gets a lot of work and is trained ~2×/week. That only builds muscle if you recover: protein ~1.6–2.2 g/kg, sleep 7–9 h, eat at/above maintenance.',
+    title: 'Rest periods',
+    body: 'Compounds (squat, deadlift, bench, row) get **2–3 min** rest — RPE 8 there means ~2 reps left in the tank, not a grind. Isolation work gets 1–2 min, and RPE 9 is reserved for that, not every set. Longer rest on the big lifts is also why real session time runs longer than the app’s simple per-set estimate.',
   },
   {
     order: 4,
+    title: 'Volume is kept high — recover for it',
+    body: 'Shoulders, lats and arms are trained hard, ~2×/week each, for V-taper width and whole-arm size; legs are maintenance-dosed on purpose. That only builds muscle if you recover: protein ~1.6–2.2 g/kg, sleep 7–9 h, eat at/above maintenance.',
+  },
+  {
+    order: 5,
+    title: 'Shoulder health first',
+    body: 'No overhead pressing anywhere in this program (tendonitis + instability). Cuban Press and the doubled-up Face Pull/Rear Delt work are rehab, not filler — never skip them, and cap every lateral raise at shoulder height. If a lift pinches, stop the set.',
+  },
+  {
+    order: 6,
     title: 'Autoregulate',
-    body: 'If a muscle stalls or a joint aches, **remove 2–4 sets** from it — the Day 5 (Legs) finishers and the extra arm work are the first to trim. Don’t add past what you recover from.',
+    body: 'If a muscle stalls or a joint aches, **remove 2–4 sets** from it — Day 3’s 2nd chest/back touch and Day 5’s forearm work are the first to trim. Don’t add past what you recover from.',
   },
 ]
 
