@@ -7,6 +7,8 @@ import Card from '../components/Card'
 import ContourBackdrop from '../components/ContourBackdrop'
 import Ring from '../components/Ring'
 import Screen from '../components/Screen'
+import WeightGoalCard from '../components/WeightGoalCard'
+import Standards from './lab/Standards'
 
 const SLOT_LABEL: Record<DaySlot['type'], string> = {
   gym: 'Gym',
@@ -148,6 +150,14 @@ export default function Today({ onStartSession }: { onStartSession: () => void }
           “{line}”
         </p>
       )}
+
+      {/* Today's checklist — the only thing you need to think about day to day */}
+      <div className="mt-4">
+        <Standards />
+      </div>
+      <div className="mt-4">
+        <WeightGoalCard />
+      </div>
 
       {/* Session overview */}
       {session && (

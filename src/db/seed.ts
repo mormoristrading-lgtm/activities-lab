@@ -654,6 +654,8 @@ export const SETTINGS: Setting[] = [
   { key: 'units', value: 'metric' },
   { key: 'theme', value: 'terra' },
   { key: 'strengthReport', value: [] },
+  // Target bodyweight (kg) for the Today-screen "Weight goal" card.
+  { key: 'weightGoalKg', value: 70 },
   {
     key: 'mobilityRoutine',
     value:

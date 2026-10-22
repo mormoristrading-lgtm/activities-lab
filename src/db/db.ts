@@ -148,6 +148,14 @@ db.version(9).stores({}).upgrade(async (tx) => {
   await tx.table('sessions').bulkAdd(SESSIONS)
 })
 
+// v10 — adds the Today-screen "Weight goal" card: a single target-bodyweight
+// setting it reads/writes. Existing installs get the default target (70 kg);
+// fresh installs get it from the seed.
+db.version(10).stores({}).upgrade(async (tx) => {
+  const existing = await tx.table('settings').get('weightGoalKg')
+  if (!existing) await tx.table('settings').add({ key: 'weightGoalKg', value: 70 })
+})
+
 // Seed exactly once, atomically, when the DB is first created.
 db.on('populate', () => seedDatabase(db))
 
