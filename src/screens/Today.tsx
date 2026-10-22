@@ -123,7 +123,7 @@ export default function Today({ onStartSession }: { onStartSession: () => void }
                 className="mt-5 w-full rounded-card-sm py-3 text-sm font-semibold"
                 style={{ background: 'var(--accent)', color: 'var(--on-accent)' }}
               >
-                {pct > 0 ? 'Continue session' : 'Start session'}
+                {pct >= 100 ? 'Session done ✓' : pct > 0 ? 'Continue session' : 'Start session'}
               </button>
             </>
           ) : (

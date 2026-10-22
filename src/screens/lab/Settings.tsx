@@ -39,7 +39,6 @@ export function SettingsBody() {
   const units = (settings.units as string) ?? 'metric'
   const theme: ThemeName = isThemeName(settings.theme) ? settings.theme : 'terra'
   const zoom = typeof settings.zoomPercent === 'number' ? settings.zoomPercent : DEFAULT_ZOOM
-  const restNotif = settings.restNotifications !== false // default on
   const lastBackupAt = settings.lastBackupAt as string | undefined
 
   async function onExport() {
@@ -159,19 +158,6 @@ export function SettingsBody() {
             <span>{MAX_ZOOM}%</span>
           </div>
         </div>
-
-        <div>
-          <label className="flex items-center justify-between">
-            <span className="text-sm" style={{ color: 'var(--text)' }}>Notify when rest ends</span>
-            <input
-              type="checkbox"
-              checked={restNotif}
-              onChange={(e) => putSetting('restNotifications', e.target.checked)}
-              className="h-5 w-5 accent-[var(--accent)]"
-            />
-          </label>
-          <NotificationStatus />
-        </div>
       </div>
 
       <div className="my-4 border-t" style={{ borderColor: 'var(--line)' }} />
@@ -229,44 +215,5 @@ export function SettingsBody() {
         </p>
       )}
     </>
-  )
-}
-
-/** Tiny inline prompt to request Notification permission for the rest-end alert. */
-function NotificationStatus() {
-  const [perm, setPerm] = useState<NotificationPermission | 'unsupported'>(() =>
-    typeof Notification === 'undefined' ? 'unsupported' : Notification.permission,
-  )
-  if (perm === 'unsupported') {
-    return (
-      <p className="mt-1 text-[11px]" style={{ color: 'var(--muted)' }}>
-        Notifications aren't supported in this browser.
-      </p>
-    )
-  }
-  if (perm === 'granted') {
-    return (
-      <p className="mt-1 text-[11px]" style={{ color: 'var(--muted)' }}>
-        Lock-screen notification will fire when rest ends.
-      </p>
-    )
-  }
-  return (
-    <div className="mt-2 flex items-center gap-2">
-      <button
-        type="button"
-        onClick={async () => {
-          const p = await Notification.requestPermission()
-          setPerm(p)
-        }}
-        className="rounded-card-sm border px-3 py-1.5 text-xs font-medium"
-        style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
-      >
-        Enable notifications
-      </button>
-      <span className="text-[11px]" style={{ color: 'var(--muted)' }}>
-        Required for lock-screen rest alerts. On iOS install the PWA first.
-      </span>
-    </div>
   )
 }
