@@ -16,7 +16,9 @@ const SLOTS: MealSlot[] = ['Breakfast', 'Lunch', 'Dinner', 'Shake', 'Snack']
 type FuelSegment = 'today' | 'guide'
 
 export default function Fuel() {
-  const [segment, setSegment] = useState<FuelSegment>('today')
+  // Defaults to the guide, not the tracker — most days you just need to know
+  // what to eat, not log it (see Standards' Protein checkbox for that).
+  const [segment, setSegment] = useState<FuelSegment>('guide')
 
   const data = useLiveQuery(async () => {
     const nutrition = await db.nutrition.get('targets')
