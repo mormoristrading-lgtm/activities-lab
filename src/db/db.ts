@@ -20,7 +20,7 @@ import type {
   Setting,
   JournalEntry,
 } from './types'
-import { seedDatabase, EXERCISES, SESSIONS, WEEK_PLAN, RUNS } from './seed'
+import { seedDatabase, EXERCISES, SESSIONS, WEEK_PLAN, RUNS, GUIDANCE } from './seed'
 
 // Auto-increment (++id) tables use EntityTable so `add()` doesn't require the id.
 // String-PK tables (weekPlan/nutrition/dailyLog/…) use Table<T, KeyType>.
@@ -157,6 +157,30 @@ db.version(10).stores({}).upgrade(async (tx) => {
 // v11 — drops the `metcons` table: it was seeded content with no screen ever
 // reading it. Dead data, removed for simplicity; nothing else changes.
 db.version(11).stores({ metcons: null })
+
+// v12 — program revision: Legs moves to Day 3 and Upper #2 to Day 4, sets
+// capped at 4, fuller leg/back/biceps/core/delt coverage, new exercises
+// (ids 1001+). Exercises are UPSERTED rather than cleared, so library imports,
+// likes and target weights survive; sessions, week plan and guidance are
+// replaced. Log tables are untouched.
+db.version(12).stores({}).upgrade(async (tx) => {
+  const exercises = tx.table('exercises')
+  for (const e of EXERCISES) {
+    const cur = await exercises.get(e.id)
+    await exercises.put({
+      ...e,
+      liked: cur?.liked,
+      targetWeight: cur?.targetWeight,
+      targetReps: cur?.targetReps,
+    })
+  }
+  await tx.table('sessions').clear()
+  await tx.table('sessions').bulkAdd(SESSIONS)
+  await tx.table('weekPlan').clear()
+  await tx.table('weekPlan').bulkAdd(WEEK_PLAN)
+  await tx.table('guidance').clear()
+  await tx.table('guidance').bulkAdd(GUIDANCE)
+})
 
 // Seed exactly once, atomically, when the DB is first created.
 db.on('populate', () => seedDatabase(db))
